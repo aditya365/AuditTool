@@ -8,12 +8,14 @@ import { SecurityGroupsService } from './security-groups/security-groups.service
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './material/material.module';
 import { SecurityGroupsDuplicateComponent } from './security-groups-duplicate/security-groups-duplicate.component';
+import { SecurityGroupDetailsComponent } from './security-groups/security-group-details/security-group-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SecurityGroupsComponent,
-    SecurityGroupsDuplicateComponent
+    SecurityGroupsDuplicateComponent,
+    SecurityGroupDetailsComponent
   ],
   imports: [
     BrowserModule,
