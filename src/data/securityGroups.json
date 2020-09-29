@@ -1,0 +1,40 @@
+{
+    "items": [
+        {
+            "groupName": "groupName1",
+            "groupId": "groupid1",
+            "vpc": "vpc1",
+            "description": "test description",
+            "application": "application 1"
+        },
+        {
+            "groupName": "groupName2",
+            "groupId": "groupid2",
+            "vpc": "vpc2",
+            "description": "test description",
+            "application": "application 2"
+        },
+        {
+            "groupName": "groupName3",
+            "groupId": "groupid3",
+            "vpc": "vpc3",
+            "description": "test description",
+            "application": "application 3"
+        },
+        {
+            "groupName": "groupName4",
+            "groupId": "groupid4",
+            "vpc": "vpc4",
+            "description": "test description",
+            "application": "application 4"
+        },
+        {
+            "groupName": "groupName5",
+            "groupId": "groupid5",
+            "vpc": "vpc5",
+            "description": "test description",
+            "application": "application 5"
+        }
+    ],
+    "totalCount":10
+}
