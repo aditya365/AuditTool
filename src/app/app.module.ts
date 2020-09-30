@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './material/material.module';
 import { SecurityGroupsDuplicateComponent } from './security-groups-duplicate/security-groups-duplicate.component';
 import { SecurityGroupDetailsComponent } from './security-groups/security-group-details/security-group-details.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,11 +22,15 @@ import { SecurityGroupDetailsComponent } from './security-groups/security-group-
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule
   ],
   providers: [
     SecurityGroupsService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    SecurityGroupsComponent
+  ],
 })
 export class AppModule { }

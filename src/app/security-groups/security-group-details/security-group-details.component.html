@@ -1,1 +1,72 @@
-<p>security-group-details works!</p>
+<h2 mat-dialog-title>Security groups</h2>
+<mat-dialog-content class="mat-typography">
+    <mat-tab-group>
+        <mat-tab label="Summary">
+            <mat-list>
+                <mat-list-item>
+                    <label mat-label>Security Group Name</label>
+                    <label mat-lebel class="value">{{details?.summary?.groupName}}</label>
+                </mat-list-item>
+                <mat-list-item>
+                    <label mat-label>Security Group Id</label>
+                    <label mat-lebel class="value">{{details?.summary?.groupId}}</label>
+                </mat-list-item>
+                <mat-list-item>
+                    <label mat-label>Description</label>
+                    <label mat-lebel class="value">{{details?.summary?.description}}</label>
+                </mat-list-item>
+                <mat-list-item>
+                    <label mat-label>Application</label>
+                    <label mat-lebel class="value">{{details?.summary?.application}}</label>
+                </mat-list-item>
+                <mat-list-item>
+                    <label mat-label>Account</label>
+                    <label mat-lebel class="value">{{details?.summary?.account}}</label>
+                </mat-list-item>
+                <mat-list-item>
+                    <label mat-label>Region</label>
+                    <label mat-lebel class="value">{{details?.summary?.region}}</label>
+                </mat-list-item>
+                <mat-list-item>
+                    <label mat-label>VPC</label>
+                    <label mat-lebel class="value">{{details?.summary?.vpc}}</label>
+                </mat-list-item>
+            </mat-list>
+        </mat-tab>
+        <mat-tab label="Inbound Rules">
+            <table mat-table [dataSource]="inboundRulesDataSource" matSort class="mat-elevation-z8" #inboundTable>
+                <ng-container matColumnDef="{{column.key}}" *ngFor="let column of inboundRulesColumns">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column.displayName}} </th>
+                    <td mat-cell *matCellDef="let element"> {{element[column.key]}} </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="getInboundColumnKeys()"></tr>
+                <tr mat-row *matRowDef="let row; columns: getInboundColumnKeys();"></tr>
+            </table>
+            <mat-paginator #inboundTablePaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        </mat-tab>
+        <mat-tab label="Outbound Rules">
+            <table mat-table [dataSource]="outboundRulesDataSource" matSort class="mat-elevation-z8" #outboundTable>
+                <ng-container matColumnDef="{{column.key}}" *ngFor="let column of outboundRulesColumns">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column.displayName}} </th>
+                    <td mat-cell *matCellDef="let element"> {{element[column.key]}} </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="getOutboundColumnKeys()"></tr>
+                <tr mat-row *matRowDef="let row; columns: getOutboundColumnKeys();"></tr>
+            </table>
+            <mat-paginator #outboundTablePaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        </mat-tab>
+        <mat-tab label="Tags">
+            <table mat-table [dataSource]="details?.tags" matSort class="mat-elevation-z8">
+                <ng-container matColumnDef="{{column}}" *ngFor="let column of tagsColumns">
+                    <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+                    <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="tagsColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: tagsColumns;"></tr>
+            </table>
+        </mat-tab>
+    </mat-tab-group>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>
