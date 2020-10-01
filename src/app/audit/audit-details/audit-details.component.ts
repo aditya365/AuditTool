@@ -4,8 +4,8 @@ import { AuditService } from '../audit.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { InboundRule } from '../models/inbound-rule.model';
-import { OutboundRule } from '../models/outbound-rule.model';
+// import { InboundRule } from '../models/inbound-rule.model';
+// import { OutboundRule } from '../models/outbound-rule.model';
 
 @Component({
   selector: 'app-audit-details',
@@ -40,8 +40,8 @@ export class AuditDetailsComponent implements OnInit, AfterViewInit {
   }];
   tagsColumns = ['Key', 'Value'];
 
-  inboundRulesDataSource: MatTableDataSource<InboundRule>;
-  outboundRulesDataSource: MatTableDataSource<OutboundRule>;
+  // inboundRulesDataSource: MatTableDataSource<InboundRule>;
+  // outboundRulesDataSource: MatTableDataSource<OutboundRule>;
 
   @ViewChild('inboundTable', { read: MatSort, static: true }) inboundTableSort: MatSort;
   @ViewChild('outboundTable', { read: MatSort, static: true }) outboundTableSort: MatSort;
@@ -50,7 +50,7 @@ export class AuditDetailsComponent implements OnInit, AfterViewInit {
   @ViewChild('outboundTablePaginator') outboundTablePaginator: MatPaginator;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
-    private auditsService: AuditsService) { }
+    private auditsService: AuditService) { }
 
   ngOnInit(): void {
   }
@@ -66,13 +66,13 @@ export class AuditDetailsComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.auditsService.getAuditDetails(this.data.groupId).subscribe((details) => {
       this.details = details;
-      this.inboundRulesDataSource = new MatTableDataSource(details?.inboundRules);
-      this.inboundRulesDataSource.paginator = this.inboundTablePaginator;
-      this.inboundRulesDataSource.sort = this.inboundTableSort;
+      // this.inboundRulesDataSource = new MatTableDataSource(details?.inboundRules);
+      // this.inboundRulesDataSource.paginator = this.inboundTablePaginator;
+      // this.inboundRulesDataSource.sort = this.inboundTableSort;
 
-      this.outboundRulesDataSource = new MatTableDataSource(details?.outboundRules);
-      this.outboundRulesDataSource.paginator = this.outboundTablePaginator;
-      this.outboundRulesDataSource.sort = this.outboundTableSort;
+      // this.outboundRulesDataSource = new MatTableDataSource(details?.outboundRules);
+      // this.outboundRulesDataSource.paginator = this.outboundTablePaginator;
+      // this.outboundRulesDataSource.sort = this.outboundTableSort;
 
     });
   }
