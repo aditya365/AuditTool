@@ -7,23 +7,27 @@ import { SecurityGroupsComponent } from './security-groups/security-groups.compo
 import { SecurityGroupsService } from './security-groups/security-groups.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './material/material.module';
-import { SecurityGroupsDuplicateComponent } from './security-groups-duplicate/security-groups-duplicate.component';
 import { SecurityGroupDetailsComponent } from './security-groups/security-group-details/security-group-details.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AuditComponent } from './audit/audit.component';
+import { AppRoutingModule } from './app-routing.module';
+import { AuditDetailsComponent } from './audit/audit-details/audit-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SecurityGroupsComponent,
-    SecurityGroupsDuplicateComponent,
-    SecurityGroupDetailsComponent
+    SecurityGroupDetailsComponent,
+    AuditComponent,
+    AuditDetailsComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AppRoutingModule
   ],
   providers: [
     SecurityGroupsService
