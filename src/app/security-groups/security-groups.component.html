@@ -1,5 +1,5 @@
 <div class="container">
-    <div><br/>
+    <div><br />
         <form [formGroup]="filtersForm">
             <mat-form-field appearance="fill">
                 <mat-label>Account</mat-label>
@@ -34,8 +34,8 @@
                 </mat-select>
             </mat-form-field>
             <mat-form-field appearance="fill">
-                <mat-label>Search Security Groups</mat-label>
-                <input matInput formControlName="securityGroup" (change)="renderSecurityGroups()" />
+                <mat-label>Filter</mat-label>
+                <input matInput (keyup)="applyFilter($event)" #input>
             </mat-form-field>
         </form>
     </div>

@@ -1,5 +1,19 @@
+<ng-container>
+    <mat-toolbar class="example-header">PORTUS</mat-toolbar>
+    <mat-sidenav-container class="example-container">
+        <mat-sidenav #sidenav mode="side" opened class="example-sidenav">
+            <mat-nav-list>
+                <mat-list-item>
+                    <a matLine routerLink="./security-groups">Security Groups</a>
+                </mat-list-item>
+                <mat-list-item>
+                    <a matLine routerLink="./audit">Audits</a>
+                </mat-list-item>
+            </mat-nav-list>
+        </mat-sidenav>
 
-
-
-<app-security-groups></app-security-groups>
-<app-audit></app-audit>
+        <mat-sidenav-content>
+            <router-outlet></router-outlet>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</ng-container>

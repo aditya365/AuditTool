@@ -4,8 +4,7 @@ import { AuditService } from '../audit.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-// import { InboundRule } from '../models/inbound-rule.model';
-// import { OutboundRule } from '../models/outbound-rule.model';
+import { Change } from '../models/changes.model';
 
 @Component({
   selector: 'app-audit-details',
@@ -14,7 +13,15 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class AuditDetailsComponent implements OnInit, AfterViewInit {
   details: any;
-  inboundRulesColumns = [{
+  changeColumns = [{
+    key: 'vpcid',
+    displayName: 'VPCID'
+  },
+  {
+    key: 'resource',
+    displayName: 'Resource'
+  },
+  {
     key: 'protocol',
     displayName: 'Protocol'
   },
@@ -23,31 +30,23 @@ export class AuditDetailsComponent implements OnInit, AfterViewInit {
     displayName: 'Port'
   },
   {
-    key: 'source',
-    displayName: 'Source'
-  }];
-  outboundRulesColumns = [{
-    key: 'protocol',
-    displayName: 'Protocol'
+    key: 'direction',
+    displayName: 'Direction'
   },
   {
-    key: 'port',
-    displayName: 'Port'
+    key: 'lastEditedBy',
+    displayName: 'Last Edited By'
   },
   {
-    key: 'destination',
-    displayName: 'Destination'
+    key: 'updatedTime',
+    displayName: 'Updated Time'
   }];
-  tagsColumns = ['Key', 'Value'];
 
-  // inboundRulesDataSource: MatTableDataSource<InboundRule>;
-  // outboundRulesDataSource: MatTableDataSource<OutboundRule>;
+  changeDataSource: MatTableDataSource<Change>;
 
-  @ViewChild('inboundTable', { read: MatSort, static: true }) inboundTableSort: MatSort;
-  @ViewChild('outboundTable', { read: MatSort, static: true }) outboundTableSort: MatSort;
+  @ViewChild('changeTable', { read: MatSort, static: true }) changeTableSort: MatSort;
 
-  @ViewChild('inboundTablePaginator') inboundTablePaginator: MatPaginator;
-  @ViewChild('outboundTablePaginator') outboundTablePaginator: MatPaginator;
+  @ViewChild('changeTablePaginator') changeTablePaginator: MatPaginator;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
     private auditsService: AuditService) { }
@@ -55,25 +54,16 @@ export class AuditDetailsComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
   }
 
-  getInboundColumnKeys(){
-    return this.inboundRulesColumns.map(c=>c.key);
-  }
-
-  getOutboundColumnKeys(){
-    return this.outboundRulesColumns.map(c=>c.key);
+  getChangeColumnKeys() {
+    return this.changeColumns.map(c => c.key);
   }
 
   ngAfterViewInit() {
     this.auditsService.getAuditDetails(this.data.groupId).subscribe((details) => {
       this.details = details;
-      // this.inboundRulesDataSource = new MatTableDataSource(details?.inboundRules);
-      // this.inboundRulesDataSource.paginator = this.inboundTablePaginator;
-      // this.inboundRulesDataSource.sort = this.inboundTableSort;
-
-      // this.outboundRulesDataSource = new MatTableDataSource(details?.outboundRules);
-      // this.outboundRulesDataSource.paginator = this.outboundTablePaginator;
-      // this.outboundRulesDataSource.sort = this.outboundTableSort;
-
+      this.changeDataSource = new MatTableDataSource(details?.Changes);
+      this.changeDataSource.paginator = this.changeTablePaginator;
+      this.changeDataSource.sort = this.changeTableSort;
     });
   }
 }

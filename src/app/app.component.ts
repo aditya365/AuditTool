@@ -7,4 +7,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Portus';
+  links = [
+    {
+      "name": "Security Groups",
+      "link": "security-groups"
+    },
+    {
+      "name": "Audits",
+      "link": "audits"
+    }
+  ];
 }

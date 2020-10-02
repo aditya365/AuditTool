@@ -21,19 +21,19 @@ export class SecurityGroupsComponent implements OnInit {
   displayedColumns = [
     {
       key: 'groupName',
-      displayName:'Group Name'
+      displayName: 'Group Name'
     },
     {
-      key:'groupId',
-      displayName:'Group Id'
+      key: 'groupId',
+      displayName: 'Group Id'
     },
     {
       key: 'vpc',
-      displayName:'VPC'
+      displayName: 'VPC'
     },
     {
       key: 'AGS',
-      displayName:'Application'
+      displayName: 'Application'
     }
   ];
   dataSource: MatTableDataSource<securityGroup>;
@@ -57,8 +57,8 @@ export class SecurityGroupsComponent implements OnInit {
     });
   }
 
-  getDisplayColumns(){
-    return this.displayedColumns.map(c=>c.key);
+  getDisplayColumns() {
+    return this.displayedColumns.map(c => c.key);
   }
 
   renderSecurityGroups() {
@@ -70,6 +70,12 @@ export class SecurityGroupsComponent implements OnInit {
         this.dataSource.sort = this.sort;
       });
     }
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    if (this.dataSource)
+      this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   showDetails(element) {

@@ -20,28 +20,28 @@ export class AuditComponent implements OnInit {
   filters: any;
   displayedColumns = [
     {
-      key:'groupId',
-      displayName:'Group Id'
+      key: 'groupId',
+      displayName: 'Group Id'
     },
     {
-      key:'account',
-      displayName:'Account'
+      key: 'account',
+      displayName: 'Account'
     },
     {
       key: 'direction',
-      displayName:'Direction'
+      displayName: 'Direction'
     },
     {
       key: 'resourceType',
-      displayName:'Resource Type'
+      displayName: 'Resource Type'
     },
     {
       key: 'updatedDate',
-      displayName:'Last Edited Time'
+      displayName: 'Last Edited Time'
     },
     {
       key: 'lastEditedBy',
-      displayName:'Last Edited By'
+      displayName: 'Last Edited By'
     }
   ];
   dataSource: MatTableDataSource<Audit>;
@@ -65,8 +65,8 @@ export class AuditComponent implements OnInit {
     });
   }
 
-  getDisplayColumns(){
-    return this.displayedColumns.map(c=>c.key);
+  getDisplayColumns() {
+    return this.displayedColumns.map(c => c.key);
   }
 
   renderAudits() {
@@ -78,6 +78,12 @@ export class AuditComponent implements OnInit {
         this.dataSource.sort = this.sort;
       });
     }
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    if (this.dataSource)
+      this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   showDetails(element) {

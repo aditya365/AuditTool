@@ -1,1 +1,19 @@
-<p>audit-details works!</p>
+<h2 mat-dialog-title>Audits</h2>
+<mat-dialog-content class="mat-typography">
+    <mat-tab-group>
+        <mat-tab label="Changes">
+            <table mat-table [dataSource]="changeDataSource" matSort class="mat-elevation-z8" #changeTable>
+                <ng-container matColumnDef="{{column.key}}" *ngFor="let column of changeColumns">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column.displayName}} </th>
+                    <td mat-cell *matCellDef="let element"> {{element[column.key]}} </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="getChangeColumnKeys()"></tr>
+                <tr mat-row *matRowDef="let row; columns: getChangeColumnKeys();"></tr>
+            </table>
+            <mat-paginator #changeTablePaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        </mat-tab>
+    </mat-tab-group>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

@@ -15,5 +15,8 @@ const routes: Route[] = [
     CommonModule,
     RouterModule.forRoot(routes)
   ],
+  exports:[
+    RouterModule
+  ]
 })
 export class AppRoutingModule { }

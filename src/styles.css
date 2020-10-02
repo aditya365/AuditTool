@@ -7,7 +7,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .container {
     position: relative;
     min-height: 200px;
-    width:80%;
     margin-left: auto;
   }
   
