@@ -90,7 +90,8 @@ export class AuditComponent implements OnInit {
     const dialogRef = this.dialog.open(AuditDetailsComponent, {
       data: {
         groupId: element.groupId
-      }
+      },
+      width: "80%"
     });
   }
 

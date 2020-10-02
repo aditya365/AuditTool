@@ -6,14 +6,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Portus';
+  title = 'Security Groups Audit Tool';
   links = [
     {
       "name": "Security Groups",
       "link": "security-groups"
     },
     {
-      "name": "Audits",
+      "name": "Audit",
       "link": "audits"
     }
   ];
