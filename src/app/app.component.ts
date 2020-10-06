@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from './dialog/dialog.component';
+import { SecurityGroupsComponent } from './security-groups/security-groups.component';
 
 @Component({
   selector: 'app-root',
@@ -17,4 +20,15 @@ export class AppComponent {
       "link": "audits"
     }
   ];
+
+  constructor(public dialog: MatDialog) {}
+
+  openDialog(): void {
+    let dialogRef = this.dialog.open(DialogComponent, {
+      width: '80%',
+      data: { component:  SecurityGroupsComponent}
+    });
+  }
+  
+  
 }

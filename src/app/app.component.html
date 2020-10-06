@@ -11,8 +11,10 @@
                     <a matLine routerLink="./audit">Audit</a>
                 </mat-list-item>
             </mat-nav-list>
-        </mat-sidenav>
+            <button mat-raised-button (click)="openDialog()">Open dialog</button>
 
+        </mat-sidenav>
+       
         <mat-sidenav-content>
             <router-outlet></router-outlet>
         </mat-sidenav-content>
