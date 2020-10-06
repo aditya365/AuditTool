@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AuditComponent } from './audit/audit.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuditDetailsComponent } from './audit/audit-details/audit-details.component';
+import { DialogComponent } from './dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { AuditDetailsComponent } from './audit/audit-details/audit-details.compo
     SecurityGroupDetailsComponent,
     AuditComponent,
     AuditDetailsComponent,
+    DialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,7 +36,7 @@ import { AuditDetailsComponent } from './audit/audit-details/audit-details.compo
   ],
   bootstrap: [AppComponent],
   entryComponents: [
-    SecurityGroupsComponent
+    SecurityGroupsComponent,DialogComponent
   ],
 })
 export class AppModule { }

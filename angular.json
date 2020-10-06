@@ -124,5 +124,8 @@
       }
     }
   },
-  "defaultProject": "Portus"
+  "defaultProject": "Portus",
+  "cli": {
+    "analytics": false
+  }
 }
