@@ -4,7 +4,9 @@ import {
   Inject,
   ViewChild,
   AfterViewInit,
+  Input,
 } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { SecurityGroupsService } from "../security-groups.service";
 import { MatPaginator } from "@angular/material/paginator";
@@ -20,6 +22,7 @@ import { OutboundRule } from "../models/outbound-rule.model";
 })
 export class SecurityGroupDetailsComponent implements OnInit, AfterViewInit {
   details: any;
+  groupId: string;
   inboundRulesColumns = [
     {
       key: "protocol",
@@ -57,16 +60,25 @@ export class SecurityGroupDetailsComponent implements OnInit, AfterViewInit {
   inboundTableSort: MatSort;
   @ViewChild("outboundTable", { read: MatSort, static: true })
   outboundTableSort: MatSort;
-
   @ViewChild("inboundTablePaginator") inboundTablePaginator: MatPaginator;
   @ViewChild("outboundTablePaginator") outboundTablePaginator: MatPaginator;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private securityGroupsService: SecurityGroupsService
-  ) {}
+    private securityGroupsService: SecurityGroupsService,
+    private activatedRoute: ActivatedRoute
+  ) {
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.groupId = this.securityGroupsService.getSelectedSecurityGroupId();
+    if (this.groupId=='') {
+      this.activatedRoute.params.subscribe((params) => {
+        console.log("inside params");
+        this.groupId = params.groupId;
+      });
+    }
+    console.log(this.groupId);
+  }
 
   getInboundColumnKeys() {
     return this.inboundRulesColumns.map((c) => c.key);
@@ -78,7 +90,8 @@ export class SecurityGroupDetailsComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.securityGroupsService
-      .getSecurityGroupDetails(this.data.groupId)
+      .getSecurityGroupDetails(this.groupId)
+
       .subscribe((details) => {
         this.details = details;
         this.inboundRulesDataSource = new MatTableDataSource(
