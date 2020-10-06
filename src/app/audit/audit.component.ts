@@ -113,7 +113,6 @@ export class AuditComponent implements OnInit {
       const groupIdIndex = this.selectedRows.indexOf(row.groupId);
       this.selectedRows.splice(groupIdIndex, 1);
     }
-    //    console.log(this.selectedRows);
   }
 
   renderAudits() {
@@ -147,27 +146,9 @@ export class AuditComponent implements OnInit {
   }
 
   showDetails() {
-    console.log("show details clicked");
-    if (this.selectedRows.length > 0) {
-      console.log(this.selectedRows);
-      const dialogRef = this.dialog.open(AuditDetailsComponent, {
-        data: {
-          groupIds: this.selectedRows,
-        },
-        width: "100%",
-      });
-    }
+    let groupIds = this.selection.selected.map((row) => row.groupId);
+    const dialogRef = this.dialog.open(AuditDetailsComponent, {
+      data: { groupIds: groupIds },
+    });
   }
-
-  // showDetails() {
-  //   this.selection.selected.forEach(item => {
-  //       this.auditm = (this.dataSource.data.find(d=> d.groupId== item.groupId));
-  //     console.log(this.auditm);
-  //     const dialogRef = this.dialog.open(AuditDetailsComponent, {
-  //         data: {
-  //            groupIds: this.auditm;
-  //      },
-  //  });
-  // })
-  //}
 }

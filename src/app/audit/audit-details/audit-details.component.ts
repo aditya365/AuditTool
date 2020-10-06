@@ -49,6 +49,7 @@ export class AuditDetailsComponent implements OnInit, AfterViewInit {
     private auditsService: AuditService) { }
 
   ngOnInit(): void {
+    console.log(this.data);
     this.data.groupIds.forEach(groupId => {
       this.auditsService.getAuditDetails(groupId).subscribe((details) => {
         this.details.push(details);

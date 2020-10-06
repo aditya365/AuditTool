@@ -18,7 +18,7 @@
                         <tr mat-header-row *matHeaderRowDef="getChangeColumnKeys()"></tr>
                         <tr mat-row *matRowDef="let row; columns: getChangeColumnKeys();"></tr>
                     </table>
-                    <!-- <mat-paginator #changeTablePaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
+                    <mat-paginator #changeTablePaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
         </mat-dialog-content>
     </div>
     <mat-dialog-actions align="end">
