@@ -19,7 +19,7 @@ import { AuditDetailsComponent } from './audit/audit-details/audit-details.compo
     SecurityGroupsComponent,
     SecurityGroupDetailsComponent,
     AuditComponent,
-    AuditDetailsComponent
+    AuditDetailsComponent,
   ],
   imports: [
     BrowserModule,

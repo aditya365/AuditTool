@@ -1,0 +1,5 @@
+.changes-container{
+    height:500px;
+    overflow-y: auto;
+    /* overflow:scroll; */
+}

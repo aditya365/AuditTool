@@ -1,5 +1,5 @@
 <div class="container">
-    <div><br/>
+    <div><br />
         <form [formGroup]="filtersForm">
             <mat-form-field appearance="fill">
                 <mat-label>Account</mat-label>
@@ -37,18 +37,31 @@
                 <mat-label>Filter</mat-label>
                 <input matInput (keyup)="applyFilter($event)" #input>
             </mat-form-field>
-
+            <button mat-button (click)="showDetails()">compare</button>
         </form>
     </div>
     <div class="table-container">
         <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+            <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox (change)="$event ? masterToggle() : null"
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+                    </mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                    (change)="updatedSelectedList($event,row)"
+                        [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+                    </mat-checkbox>
+                </td>
+            </ng-container>
             <ng-container matColumnDef="{{column.key}}" *ngFor="let column of displayedColumns">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column.displayName}} </th>
                 <td mat-cell *matCellDef="let element"> {{element[column.key]}} </td>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="getDisplayColumns()"></tr>
-            <tr mat-row *matRowDef="let element; columns: getDisplayColumns()" class="example-element-row"
-                (click)="showDetails(element)"></tr>
+            <tr mat-row *matRowDef="let element; columns: getDisplayColumns()" class="example-element-row"></tr>
         </table>
         <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]"></mat-paginator>
     </div>

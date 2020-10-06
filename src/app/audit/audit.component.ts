@@ -7,6 +7,7 @@ import { AuditDetailsComponent } from './audit-details/audit-details.component';
 import { AuditService } from './audit.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormGroup, FormControl } from '@angular/forms';
+import { SelectionModel } from '@angular/cdk/collections';
 /**
  * @title Table retrieving data through HTTP
  */
@@ -18,7 +19,13 @@ import { FormGroup, FormControl } from '@angular/forms';
 export class AuditComponent implements OnInit {
   filtersForm: FormGroup;
   filters: any;
+  selection = new SelectionModel<Audit>(true, []);
+  selectedRows = [];
   displayedColumns = [
+    // {
+    //   key: 'select',
+    //   displayName: 'Select'
+    // },
     {
       key: 'groupId',
       displayName: 'Group Id'
@@ -65,8 +72,47 @@ export class AuditComponent implements OnInit {
     });
   }
 
+
+  isAllSelected() {
+    if (this.dataSource) {
+      const numSelected = this.selection.selected.length;
+      const numRows = this.dataSource.data.length;
+      return numSelected === numRows;
+    }
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
+    console.log(this.selection);
+  }
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: Audit): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.groupId + 1}`;
+  }
+
   getDisplayColumns() {
-    return this.displayedColumns.map(c => c.key);
+    //return ['select','account','direction'];
+    let columns = [];
+    columns.push('select');
+    columns.push(...this.displayedColumns.map(c => c.key));
+    return columns;
+  }
+
+  updatedSelectedList(event, row) {
+    if (event.checked) {
+      this.selectedRows.push(row.groupId);
+    } else {
+      const groupIdIndex = this.selectedRows.indexOf(row.groupId);
+      this.selectedRows.splice(groupIdIndex, 1);
+    }
+    console.log(this.selectedRows);
   }
 
   renderAudits() {
@@ -86,13 +132,15 @@ export class AuditComponent implements OnInit {
       this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  showDetails(element) {
-    const dialogRef = this.dialog.open(AuditDetailsComponent, {
-      data: {
-        groupId: element.groupId
-      },
-      width: "80%"
-    });
+  showDetails() {
+    console.log("show details clicked");
+    if (this.selectedRows.length > 0) {
+      const dialogRef = this.dialog.open(AuditDetailsComponent, {
+        data: {
+          groupIds: this.selectedRows
+        },
+        width: "100%"
+      });
+    }
   }
-
 }

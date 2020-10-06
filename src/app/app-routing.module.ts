@@ -6,7 +6,7 @@ import { AuditComponent } from './audit/audit.component';
 
 const routes: Route[] = [
   { path: 'security-groups', component: SecurityGroupsComponent },
-  { path: 'audit', component: AuditComponent }
+  { path: 'audit', component: AuditComponent },
 ];
 
 @NgModule({

@@ -12,7 +12,7 @@ import { Change } from '../models/changes.model';
   styleUrls: ['./audit-details.component.css']
 })
 export class AuditDetailsComponent implements OnInit, AfterViewInit {
-  details: any;
+  details: any[]=[];
   changeColumns = [
     {
       key: 'resource',
@@ -39,16 +39,25 @@ export class AuditDetailsComponent implements OnInit, AfterViewInit {
       displayName: 'Updated Time'
     }];
 
-  changeDataSource: MatTableDataSource<Change>;
+  changeDataSources: MatTableDataSource<Change>[]=[];
 
-  @ViewChild('changeTable', { read: MatSort, static: true }) changeTableSort: MatSort;
+  // @ViewChild('changeTable', { read: MatSort, static: true }) changeTableSort: MatSort;
 
-  @ViewChild('changeTablePaginator') changeTablePaginator: MatPaginator;
+  // @ViewChild('changeTablePaginator') changeTablePaginator: MatPaginator;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
     private auditsService: AuditService) { }
 
   ngOnInit(): void {
+    this.data.groupIds.forEach(groupId => {
+      this.auditsService.getAuditDetails(groupId).subscribe((details) => {
+        this.details.push(details);
+        const tableSource = new MatTableDataSource<Change>(details?.Changes);
+        // tableSource.paginator = this.changeTablePaginator[];
+        // tableSource.sort = this.changeTableSort;
+        this.changeDataSources.push(tableSource);
+      });
+    });
   }
 
   getChangeColumnKeys() {
@@ -56,11 +65,5 @@ export class AuditDetailsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.auditsService.getAuditDetails(this.data.groupId).subscribe((details) => {
-      this.details = details;
-      this.changeDataSource = new MatTableDataSource(details?.Changes);
-      this.changeDataSource.paginator = this.changeTablePaginator;
-      this.changeDataSource.sort = this.changeTableSort;
-    });
   }
 }

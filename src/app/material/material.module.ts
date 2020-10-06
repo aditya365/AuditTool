@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [],
@@ -32,7 +33,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatInputModule,
     MatSidenavModule,
     MatIconModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatCheckboxModule
   ],
   exports:[
     MatTableModule,
@@ -48,7 +50,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatInputModule,
     MatSidenavModule,
     MatIconModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatCheckboxModule
   ]
 })
 export class MaterialModule { }
