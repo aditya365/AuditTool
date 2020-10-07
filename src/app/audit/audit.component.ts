@@ -8,7 +8,6 @@ import { AuditService } from "./audit.service";
 import { MatTableDataSource } from "@angular/material/table";
 import { FormGroup, FormControl } from "@angular/forms";
 import { SelectionModel } from "@angular/cdk/collections";
-import {MatDatepickerModule} from '@angular/material/datepicker';
 /**
  * @title Table retrieving data through HTTP
  */
@@ -18,11 +17,6 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
   templateUrl: "./audit.component.html",
 })
 export class AuditComponent implements OnInit {
-  range = new FormGroup({
-    start: new FormControl(),
-    end: new FormControl()
-  });
-  
   filtersForm: FormGroup;
   filters: any;
   selection = new SelectionModel<Audit>(true, []);
