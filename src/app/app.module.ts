@@ -15,6 +15,10 @@ import { AuditDetailsComponent } from './audit/audit-details/audit-details.compo
 import { DialogComponent } from './dialog/dialog.component';
 // import {MatDatepickerModule} from '@angular/material/datepicker';
 
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
+import { FormsModule } from '@angular/forms';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +35,11 @@ import { DialogComponent } from './dialog/dialog.component';
     MaterialModule,
     ReactiveFormsModule,
     AppRoutingModule,
+
+
+    FormsModule,
+    NgxDaterangepickerMd.forRoot()
+
 
   ],
   providers: [

@@ -8,6 +8,7 @@ import { AuditService } from "./audit.service";
 import { MatTableDataSource } from "@angular/material/table";
 import { FormGroup, FormControl } from "@angular/forms";
 import { SelectionModel } from "@angular/cdk/collections";
+import { isMoment, Moment } from "moment";
 /**
  * @title Table retrieving data through HTTP
  */
@@ -21,6 +22,9 @@ export class AuditComponent implements OnInit {
   filters: any;
   selection = new SelectionModel<Audit>(true, []);
   selectedRows = [];
+
+  dates: { startDate: Moment; endDate: Moment };
+
   displayedColumns = [
     // {
     //   key: 'select',
@@ -120,7 +124,7 @@ export class AuditComponent implements OnInit {
       filters.account != "" &&
       filters.region != "" &&
       filters.vpc != "" &&
-      filters.application != ""
+      filters.application != "" 
     ) {
       this.auditService
         .getAuditData(
@@ -128,7 +132,9 @@ export class AuditComponent implements OnInit {
           filters.region,
           filters.vpc,
           filters.application,
-          filters.audit
+          filters.audit,
+          this.dates.startDate.format('MM-DD-YYYY'),
+          this.dates.endDate.format('MM-DD-YYYY')
         )
         .subscribe((data) => {
           this.dataSource = new MatTableDataSource(data);
@@ -144,18 +150,22 @@ export class AuditComponent implements OnInit {
       this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  filterByDates(event){
+    console.log(event);
+  }
+
+
+
   showDetails() {
     this.canShowDetails = true;
     this.groupIds = this.selection.selected.map((row) => row.groupId);
     // const dialogRef = this.dialog.open(AuditDetailsComponent, {
     //   data: { groupIds: groupIds },
     // });
-    console.log(this.groupIds);   
-
+    console.log(this.groupIds);
   }
 
   hideDetails() {
     this.canShowDetails = false;
   }
-
 }

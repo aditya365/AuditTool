@@ -11,8 +11,9 @@ export class AuditService {
 
   constructor(private http: HttpClient) { }
 
-  getAuditData(account, region, vpc, application, audit): Observable<Audit[]> {
-    return this.http.get<Audit[]>(`${environment.apiendpoint}audit/audit.json?account=${account}&region=${region}&vpc=${vpc}&application=${application}&audit=${audit}`);
+  getAuditData(account, region, vpc, application, audit,startDate,endDate): Observable<Audit[]> {
+    console.log(startDate,endDate);
+    return this.http.get<Audit[]>(`${environment.apiendpoint}audit/audit.json?account=${account}&region=${region}&vpc=${vpc}&application=${application}&audit=${audit}&startDate=${startDate}&endDate=${endDate}`);
   }
 
   getAuditDetails(groupId: string): Observable<any> {

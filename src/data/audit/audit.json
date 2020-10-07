@@ -71,7 +71,7 @@
     "groupId":"sg-8d5ea0c6",
     "direction":"INBOUND",
     "resourceType": "IP",
-    "updatedDate": "10/18/2020 4:16PM"
+    "updatedDate": "10/09/2020 4:16PM"
   },
   {
     "policyId":"26",
@@ -101,7 +101,7 @@
     "groupId":"sg-0bd4c913ebd66ae2d",
     "direction":"INBOUND",
     "resourceType": "IP",
-    "updatedDate": "10/18/2020 7:54AM"
+    "updatedDate": "10/10/2020 7:54AM"
   },
   {
     "vpcId":"vpc-d966aca1",
