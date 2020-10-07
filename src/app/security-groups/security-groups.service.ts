@@ -37,6 +37,7 @@ export class SecurityGroupsService {
   setSelectedSecurityGroupId(groupId) {
     console.log("setted");
     this.selectedSecurityGroupId = groupId;
+    console.log(this.selectedSecurityGroupId);
   }
 
   getSelectedSecurityGroupId() {

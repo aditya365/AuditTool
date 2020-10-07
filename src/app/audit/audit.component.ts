@@ -8,6 +8,7 @@ import { AuditService } from "./audit.service";
 import { MatTableDataSource } from "@angular/material/table";
 import { FormGroup, FormControl } from "@angular/forms";
 import { SelectionModel } from "@angular/cdk/collections";
+import {MatDatepickerModule} from '@angular/material/datepicker';
 /**
  * @title Table retrieving data through HTTP
  */
@@ -17,6 +18,11 @@ import { SelectionModel } from "@angular/cdk/collections";
   templateUrl: "./audit.component.html",
 })
 export class AuditComponent implements OnInit {
+  range = new FormGroup({
+    start: new FormControl(),
+    end: new FormControl()
+  });
+  
   filtersForm: FormGroup;
   filters: any;
   selection = new SelectionModel<Audit>(true, []);
@@ -52,11 +58,10 @@ export class AuditComponent implements OnInit {
     },
   ];
   dataSource: MatTableDataSource<Audit>;
-
+  canShowDetails = false;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  auditm: any;
-
+  groupIds: any;
   constructor(public dialog: MatDialog, private auditService: AuditService) {}
 
   ngOnInit() {
@@ -146,9 +151,17 @@ export class AuditComponent implements OnInit {
   }
 
   showDetails() {
-    let groupIds = this.selection.selected.map((row) => row.groupId);
-    const dialogRef = this.dialog.open(AuditDetailsComponent, {
-      data: { groupIds: groupIds },
-    });
+    this.canShowDetails = true;
+    this.groupIds = this.selection.selected.map((row) => row.groupId);
+    // const dialogRef = this.dialog.open(AuditDetailsComponent, {
+    //   data: { groupIds: groupIds },
+    // });
+    console.log(this.groupIds);   
+
   }
+
+  hideDetails() {
+    this.canShowDetails = false;
+  }
+
 }
