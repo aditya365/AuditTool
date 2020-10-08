@@ -39,10 +39,10 @@
             </mat-form-field>
             <mat-form-field appearance="fill">
                 <mat-label>Dates</mat-label>
-                <input type="text" matInput ngxDaterangepickerMd [(ngModel)]="dates" (change)="renderAudits()" class="form-control" [ngModelOptions]="{standalone: true}"/>
+                <input type="text" matInput ngxDaterangepickerMd [timePicker]="true" [locale]="{format: 'DD/MM/YY HH a'}" [autoApply]='false' [(ngModel)]="dates" (change)="renderAudits()" class="form-control" [ngModelOptions]="{standalone: true}"/>
             </mat-form-field>
 
-            <button mat-raised-button color="primary" (click)="showDetails()">compare</button>
+            <button mat-raised-button color="primary" [disabled]="isCompareDisabled()" (click)="showDetails()">compare</button>
         </form>
     </div>
     <div class="table-container">

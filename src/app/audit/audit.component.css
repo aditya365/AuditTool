@@ -1,5 +1,5 @@
-.container{
-  position:relative;
+.container {
+  position: relative;
 }
 
 .side-panel {
@@ -10,7 +10,7 @@
   right: 0;
   top: 0;
   background: #ccc;
-  padding:5px;
+  padding: 5px;
   overflow-y: auto;
 }
 
@@ -21,13 +21,12 @@
 .display-none {
   display: none;
 }
-.auditDetailsHeight{
-  height:100%;
+.auditDetailsHeight {
+  height: 100%;
 }
 
-
-#CloseBtn{
-  position:absolute;
-  top:5px;
-  left:5px;
+#CloseBtn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
 }
