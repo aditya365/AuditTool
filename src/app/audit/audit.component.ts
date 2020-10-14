@@ -6,8 +6,9 @@ import { MatDialog } from "@angular/material/dialog";
 import { AuditDetailsComponent } from "./audit-details/audit-details.component";
 import { AuditService } from "./audit.service";
 import { MatTableDataSource } from "@angular/material/table";
-import { FormGroup, FormControl } from "@angular/forms";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { SelectionModel } from "@angular/cdk/collections";
+import { isMoment, Moment } from "moment";
 /**
  * @title Table retrieving data through HTTP
  */
@@ -21,6 +22,10 @@ export class AuditComponent implements OnInit {
   filters: any;
   selection = new SelectionModel<Audit>(true, []);
   selectedRows = [];
+  disabled: boolean = true;
+
+  dates: { startDate: Moment; endDate: Moment };
+
   displayedColumns = [
     // {
     //   key: 'select',
@@ -52,19 +57,18 @@ export class AuditComponent implements OnInit {
     },
   ];
   dataSource: MatTableDataSource<Audit>;
-
+  canShowDetails = false;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  auditm: any;
-
+  groupIds: any;
   constructor(public dialog: MatDialog, private auditService: AuditService) {}
 
   ngOnInit() {
     this.filtersForm = new FormGroup({
-      account: new FormControl(""),
-      region: new FormControl(""),
-      vpc: new FormControl(""),
-      application: new FormControl(""),
+      account: new FormControl("", Validators.required),
+      region: new FormControl("", Validators.required),
+      vpc: new FormControl("", Validators.required),
+      application: new FormControl("", Validators.required),
       audit: new FormControl(""),
     });
     this.auditService.getFilters().subscribe((filters) => {
@@ -85,7 +89,6 @@ export class AuditComponent implements OnInit {
     this.isAllSelected()
       ? this.selection.clear()
       : this.dataSource.data.forEach((row) => this.selection.select(row));
-    console.log(this.selection);
   }
 
   /** The label for the checkbox on the passed row */
@@ -113,29 +116,35 @@ export class AuditComponent implements OnInit {
       const groupIdIndex = this.selectedRows.indexOf(row.groupId);
       this.selectedRows.splice(groupIdIndex, 1);
     }
-    //    console.log(this.selectedRows);
+    this.disabled = this.selectedRows.length ? false : true;
   }
 
   renderAudits() {
     const filters = this.filtersForm.value;
     if (
-      filters.account != "" &&
+      filters.acoucnt != "" &&
       filters.region != "" &&
       filters.vpc != "" &&
       filters.application != ""
     ) {
+      this.disabled = false;
       this.auditService
         .getAuditData(
           filters.account,
           filters.region,
           filters.vpc,
           filters.application,
-          filters.audit
+          filters.audit,
+          this.dates.startDate == null
+            ? ""
+            : this.dates.startDate.utc().format(),
+          this.dates.endDate == null ? "" : this.dates.endDate.utc().format()
         )
         .subscribe((data) => {
           this.dataSource = new MatTableDataSource(data);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
+          console.log(this.dates.startDate);
         });
     }
   }
@@ -146,28 +155,27 @@ export class AuditComponent implements OnInit {
       this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  showDetails() {
-    console.log("show details clicked");
-    if (this.selectedRows.length > 0) {
-      console.log(this.selectedRows);
-      const dialogRef = this.dialog.open(AuditDetailsComponent, {
-        data: {
-          groupIds: this.selectedRows,
-        },
-        width: "100%",
-      });
+  filterByDates(event) {
+    console.log(event);
+  }
+
+  isCompareDisabled() {
+    if (this.selection.selected.length > 0 && this.filtersForm.valid) return false;
+    else {
+      return true;
     }
   }
 
-  // showDetails() {
-  //   this.selection.selected.forEach(item => {
-  //       this.auditm = (this.dataSource.data.find(d=> d.groupId== item.groupId));
-  //     console.log(this.auditm);
-  //     const dialogRef = this.dialog.open(AuditDetailsComponent, {
-  //         data: {
-  //            groupIds: this.auditm;
-  //      },
-  //  });
-  // })
-  //}
+  showDetails() {
+    this.canShowDetails = true;
+    this.groupIds = this.selection.selected.map((row) => row.groupId);
+    // const dialogRef = this.dialog.open(AuditDetailsComponent, {
+    //   data: { groupIds: groupIds },
+    // });
+    console.log(this.groupIds);
+  }
+
+  hideDetails() {
+    this.canShowDetails = false;
+  }
 }

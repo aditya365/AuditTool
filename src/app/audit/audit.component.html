@@ -37,7 +37,12 @@
                 <mat-label>Filter</mat-label>
                 <input matInput (keyup)="applyFilter($event)" #input>
             </mat-form-field>
-            <button mat-raised-button color="primary" (click)="showDetails()">compare</button>
+            <mat-form-field appearance="fill">
+                <mat-label>Dates</mat-label>
+                <input type="text" matInput ngxDaterangepickerMd [timePicker]="true" [locale]="{format: 'DD/MM/YY HH a'}" [autoApply]='false' [(ngModel)]="dates" (change)="renderAudits()" class="form-control" [ngModelOptions]="{standalone: true}"/>
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" [disabled]="isCompareDisabled()" (click)="showDetails()">compare</button>
         </form>
     </div>
     <div class="table-container">
@@ -64,5 +69,9 @@
             <tr mat-row *matRowDef="let element; columns: getDisplayColumns()" class="example-element-row"></tr>
         </table>
         <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]"></mat-paginator>
+    </div>
+    <div class="side-panel" *ngIf="canShowDetails">
+        <app-audit-details class="audit-details" [groupIds]="groupIds"></app-audit-details>
+        <button id="CloseBtn" mat-raised-button color="warn" (click)="hideDetails()">Close</button>
     </div>
 </div>

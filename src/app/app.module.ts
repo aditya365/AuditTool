@@ -13,6 +13,11 @@ import { AuditComponent } from './audit/audit.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuditDetailsComponent } from './audit/audit-details/audit-details.component';
 import { DialogComponent } from './dialog/dialog.component';
+// import {MatDatepickerModule} from '@angular/material/datepicker';
+
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -22,14 +27,20 @@ import { DialogComponent } from './dialog/dialog.component';
     AuditComponent,
     AuditDetailsComponent,
     DialogComponent,
-  ],
+    ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     MaterialModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+
+
+    FormsModule,
+    NgxDaterangepickerMd.forRoot()
+
+
   ],
   providers: [
     SecurityGroupsService

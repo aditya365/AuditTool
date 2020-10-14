@@ -10,9 +10,16 @@ import { environment } from '../../environments/environment';
 export class AuditService {
 
   constructor(private http: HttpClient) { }
-
-  getAuditData(account, region, vpc, application, audit): Observable<Audit[]> {
-    return this.http.get<Audit[]>(`${environment.apiendpoint}audit/audit.json?account=${account}&region=${region}&vpc=${vpc}&application=${application}&audit=${audit}`);
+  paramString:any;
+  getAuditData(account, region, vpc, application, audit,startDate,endDate): Observable<Audit[]> {
+    if(startDate =="" && endDate =="" ){
+          this.paramString = `account=${account}&region=${region}&vpc=${vpc}&application=${application}&audit=${audit}`;
+    }
+   this.paramString = `account=${account}&region=${region}&vpc=${vpc}&application=${application}&audit=${audit}&startDate=${startDate}&endDate=${endDate}`
+ 
+    console.log(this.paramString)
+   // return this.http.get<Audit[]>(`${environment.apiendpoint}audit/audit.json?account=${account}&region=${region}&vpc=${vpc}&application=${application}&audit=${audit}&startDate=${startDate}&endDate=${endDate}`);
+    return this.http.get<Audit[]>(`${environment.apiendpoint}audit/audit.json?`+this.paramString);
   }
 
   getAuditDetails(groupId: string): Observable<any> {
