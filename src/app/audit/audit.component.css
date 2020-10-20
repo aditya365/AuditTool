@@ -1,0 +1,32 @@
+.container {
+  position: relative;
+}
+
+.side-panel {
+  width: 80%;
+  height: auto;
+  max-height: 95%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: #ccc;
+  padding: 5px;
+  overflow-y: auto;
+}
+
+.display-block {
+  display: block;
+}
+
+.display-none {
+  display: none;
+}
+.auditDetailsHeight {
+  height: 100%;
+}
+
+#CloseBtn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}

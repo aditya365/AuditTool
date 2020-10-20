@@ -1,41 +1,42 @@
-import { Component, ViewChild, AfterViewInit, OnInit, ElementRef } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { securityGroup } from './models/securityGroup.model';
-import { MatDialog } from '@angular/material/dialog';
-import { SecurityGroupDetailsComponent } from './security-group-details/security-group-details.component';
-import { SecurityGroupsService } from './security-groups.service';
-import { MatTableDataSource } from '@angular/material/table';
-import { FormGroup, FormControl } from '@angular/forms';
+import { Component, ViewChild, AfterViewInit, OnInit, OnDestroy, ElementRef } from "@angular/core";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { securityGroup } from "./models/securityGroup.model";
+import { MatDialog } from "@angular/material/dialog";
+import { SecurityGroupDetailsComponent } from "./security-group-details/security-group-details.component";
+import { SecurityGroupsService } from "./security-groups.service";
+import { MatTableDataSource } from "@angular/material/table";
+import { FormGroup, FormControl } from "@angular/forms";
+import { DialogComponent } from "../dialog/dialog.component";
 /**
  * @title Table retrieving data through HTTP
  */
 @Component({
-  selector: 'app-security-groups',
-  styleUrls: ['./security-groups.component.css'],
-  templateUrl: './security-groups.component.html'
+  selector: "app-security-groups",
+  styleUrls: ["./security-groups.component.css"],
+  templateUrl: "./security-groups.component.html",
 })
-export class SecurityGroupsComponent implements OnInit {
+export class SecurityGroupsComponent implements OnInit, OnDestroy {
   filtersForm: FormGroup;
   filters: any;
   accounts: any;
   displayedColumns = [
     {
-      key: 'groupName',
-      displayName: 'Group Name'
+      key: "groupName",
+      displayName: "Group Name",
     },
     {
-      key: 'groupId',
-      displayName: 'Group Id'
+      key: "groupId",
+      displayName: "Group Id",
     },
     {
-      key: 'vpc',
-      displayName: 'VPC'
+      key: "vpc",
+      displayName: "VPC",
     },
     {
-      key: 'AGS',
-      displayName: 'Application'
-    }
+      key: "AGS",
+      displayName: "Application",
+    },
   ];
   dataSource: MatTableDataSource<securityGroup>;
 
@@ -44,16 +45,18 @@ export class SecurityGroupsComponent implements OnInit {
   @ViewChild('input') filter : ElementRef;
 
 
-  constructor(public dialog: MatDialog,
-    private securityGroupsService: SecurityGroupsService) { }
+  constructor(
+    public dialog: MatDialog,
+    private securityGroupsService: SecurityGroupsService
+  ) {}
 
   ngOnInit() {
     this.filtersForm = new FormGroup({
-      account: new FormControl(''),
-      region: new FormControl(''),
-      vpc: new FormControl(''),
-      application: new FormControl(''),
-      securityGroup: new FormControl(''),
+      account: new FormControl(""),
+      region: new FormControl(""),
+      vpc: new FormControl(""),
+      application: new FormControl(""),
+      securityGroup: new FormControl(""),
     });
     // this.securityGroupsService.getFilters().subscribe((filters) => {
     //   this.filters = filters;
@@ -67,17 +70,30 @@ export class SecurityGroupsComponent implements OnInit {
   }
 
   getDisplayColumns() {
-    return this.displayedColumns.map(c => c.key);
+    return this.displayedColumns.map((c) => c.key);
   }
 
   renderSecurityGroups() {
     const filters = this.filtersForm.value;
-    if (filters.account != '' && filters.region != '' && filters.vpc != '' && filters.application != '') {
-      this.securityGroupsService.getSecurityGroupsData(filters.account, filters.region, filters.vpc, filters.application, filters.securityGroup).subscribe((data) => {
-        this.dataSource = new MatTableDataSource(data);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      });
+    if (
+      filters.account != "" &&
+      filters.region != "" &&
+      filters.vpc != "" &&
+      filters.application != ""
+    ) {
+      this.securityGroupsService
+        .getSecurityGroupsData(
+          filters.account,
+          filters.region,
+          filters.vpc,
+          filters.application,
+          filters.securityGroup
+        )
+        .subscribe((data) => {
+          this.dataSource = new MatTableDataSource(data);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        });
     }
   }
 
@@ -100,12 +116,24 @@ export class SecurityGroupsComponent implements OnInit {
     });
     this.filter.nativeElement.value=''; 
   }
+
+  // showDetails(element) {
+  //   const dialogRef = this.dialog.open(SecurityGroupDetailsComponent, {
+  //     data: {
+  //       groupId: element.groupId
+  //     }
+  //   });
+  //   console.log(element.groupId);
+  // }
   showDetails(element) {
-    const dialogRef = this.dialog.open(SecurityGroupDetailsComponent, {
-      data: {
-        groupId: element.groupId
-      }
+    this.securityGroupsService.setSelectedSecurityGroupId(element.groupId);
+    let dialogRef = this.dialog.open(DialogComponent, {
+      width: "80%",
+      data: { component: SecurityGroupDetailsComponent },
     });
   }
 
+  ngOnDestroy(){
+    this.securityGroupsService.setSelectedSecurityGroupId('');
+  }
 }

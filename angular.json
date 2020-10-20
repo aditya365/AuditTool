@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Portus": {
+    "AuditTool": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/Portus",
+            "outputPath": "dist/AuditTool",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -64,18 +64,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "Portus:build"
+            "browserTarget": "AuditTool:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "Portus:build:production"
+              "browserTarget": "AuditTool:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Portus:build"
+            "browserTarget": "AuditTool:build"
           }
         },
         "test": {
@@ -113,18 +113,18 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "Portus:serve"
+            "devServerTarget": "AuditTool:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "Portus:serve:production"
+              "devServerTarget": "AuditTool:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "Portus",
+  "defaultProject": "AuditTool",
   "cli": {
     "analytics": false
   }
