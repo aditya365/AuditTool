@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, OnInit, ElementRef } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Audit } from './models/audit.model';
@@ -6,7 +6,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { AuditDetailsComponent } from './audit-details/audit-details.component';
 import { AuditService } from './audit.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl,ReactiveFormsModule } from '@angular/forms';
+
 /**
  * @title Table retrieving data through HTTP
  */
@@ -18,6 +19,8 @@ import { FormGroup, FormControl } from '@angular/forms';
 export class AuditComponent implements OnInit {
   filtersForm: FormGroup;
   filters: any;
+  accounts : any;
+ 
   displayedColumns = [
     {
       key: 'groupId',
@@ -48,6 +51,7 @@ export class AuditComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('input') filter : ElementRef;
 
   constructor(public dialog: MatDialog,
     private auditService: AuditService) { }
@@ -60,8 +64,12 @@ export class AuditComponent implements OnInit {
       application: new FormControl(''),
       audit: new FormControl(''),
     });
-    this.auditService.getFilters().subscribe((filters) => {
-      this.filters = filters;
+  //  this.auditService.getFilters(account).subscribe((filters) => {
+    //  this.filters = filters;
+    //});
+    this.auditService.getAccounts().subscribe((accounts) => {
+      this.accounts = accounts;
+      console.log(this.accounts);
     });
   }
 
@@ -78,6 +86,19 @@ export class AuditComponent implements OnInit {
         this.dataSource.sort = this.sort;
       });
     }
+  }
+  filterByAccount(account){
+    this.dataSource= new MatTableDataSource();
+    console.log(account);
+    this.auditService.getFilters(account).subscribe((filters) => {
+      this.filters = filters;
+    });
+    this.filtersForm.patchValue({
+      region :'',
+      vpc:'',
+      application:''
+    });
+    this.filter.nativeElement.value='';   
   }
 
   applyFilter(event: Event) {

@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, OnInit, ElementRef } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { securityGroup } from './models/securityGroup.model';
@@ -18,6 +18,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 export class SecurityGroupsComponent implements OnInit {
   filtersForm: FormGroup;
   filters: any;
+  accounts: any;
   displayedColumns = [
     {
       key: 'groupName',
@@ -40,6 +41,8 @@ export class SecurityGroupsComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('input') filter : ElementRef;
+
 
   constructor(public dialog: MatDialog,
     private securityGroupsService: SecurityGroupsService) { }
@@ -52,8 +55,14 @@ export class SecurityGroupsComponent implements OnInit {
       application: new FormControl(''),
       securityGroup: new FormControl(''),
     });
-    this.securityGroupsService.getFilters().subscribe((filters) => {
-      this.filters = filters;
+    // this.securityGroupsService.getFilters().subscribe((filters) => {
+    //   this.filters = filters;
+    // });
+
+    this.securityGroupsService.getAccounts().subscribe((accounts) => {
+      this.accounts = accounts;
+      console.log("hi");
+      console.log(this.accounts);
     });
   }
 
@@ -77,7 +86,20 @@ export class SecurityGroupsComponent implements OnInit {
     if (this.dataSource)
       this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
+  filterByAccount(account){
+    this.dataSource= new MatTableDataSource();
+    this.dataSource =null;
+    console.log(account);
+    this.securityGroupsService.getFilters(account).subscribe((filters) => {
+      this.filters = filters;
+    });
+    this.filtersForm.patchValue({
+      region :'',
+      vpc:'',
+      application:''
+    });
+    this.filter.nativeElement.value=''; 
+  }
   showDetails(element) {
     const dialogRef = this.dialog.open(SecurityGroupDetailsComponent, {
       data: {

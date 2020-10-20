@@ -19,7 +19,11 @@ export class AuditService {
     return this.http.get<any>(`${environment.apiendpoint}audit/details.json?groupid=${groupId}`);
   }
 
-  getFilters(): Observable<any> {
-    return this.http.get(`${environment.apiendpoint}audit/filters.json`);
+  getFilters(account:string): Observable<any> {
+    return this.http.get(`${environment.apiendpoint}audit/filters.json?account=${account}`);
+  }
+
+  getAccounts(): Observable<any> {
+    return this.http.get(`${environment.apiendpoint}audit/account.json`);
   }
 }

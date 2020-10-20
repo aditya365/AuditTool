@@ -3,8 +3,8 @@
         <form [formGroup]="filtersForm">
             <mat-form-field appearance="fill">
                 <mat-label>Account</mat-label>
-                <mat-select formControlName="account" (selectionChange)="renderSecurityGroups()">
-                    <mat-option *ngFor="let account of filters?.account" [value]="account">
+                <mat-select formControlName="account" (selectionChange)="filterByAccount($event.value)">
+                    <mat-option *ngFor="let account of accounts?.account" [value]="account">
                         {{account}}
                     </mat-option>
                 </mat-select>
