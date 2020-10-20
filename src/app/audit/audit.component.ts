@@ -1,4 +1,5 @@
-import { Component, ViewChild, AfterViewInit, OnInit } from "@angular/core";
+
+import { Component, ViewChild, AfterViewInit, OnInit, ElementRef } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { Audit } from "./models/audit.model";
@@ -20,6 +21,8 @@ import { isMoment, Moment } from "moment";
 export class AuditComponent implements OnInit {
   filtersForm: FormGroup;
   filters: any;
+  accounts : any;
+ 
   selection = new SelectionModel<Audit>(true, []);
   selectedRows = [];
   disabled: boolean = true;
@@ -60,8 +63,11 @@ export class AuditComponent implements OnInit {
   canShowDetails = false;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('input') filter : ElementRef;
+
+  constructor(public dialog: MatDialog,
+    private auditService: AuditService) { }
   groupIds: any;
-  constructor(public dialog: MatDialog, private auditService: AuditService) {}
 
   ngOnInit() {
     this.filtersForm = new FormGroup({
@@ -71,8 +77,12 @@ export class AuditComponent implements OnInit {
       application: new FormControl("", Validators.required),
       audit: new FormControl(""),
     });
-    this.auditService.getFilters().subscribe((filters) => {
-      this.filters = filters;
+  //  this.auditService.getFilters(account).subscribe((filters) => {
+    //  this.filters = filters;
+    //});
+    this.auditService.getAccounts().subscribe((accounts) => {
+      this.accounts = accounts;
+      console.log(this.accounts);
     });
   }
 
@@ -147,6 +157,19 @@ export class AuditComponent implements OnInit {
           console.log(this.dates.startDate);
         });
     }
+  }
+  filterByAccount(account){
+    this.dataSource= new MatTableDataSource();
+    console.log(account);
+    this.auditService.getFilters(account).subscribe((filters) => {
+      this.filters = filters;
+    });
+    this.filtersForm.patchValue({
+      region :'',
+      vpc:'',
+      application:''
+    });
+    this.filter.nativeElement.value='';   
   }
 
   applyFilter(event: Event) {

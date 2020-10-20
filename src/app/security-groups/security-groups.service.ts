@@ -30,8 +30,12 @@ export class SecurityGroupsService {
     );
   }
 
-  getFilters(): Observable<any> {
-    return this.http.get(`${environment.apiendpoint}filters.json`);
+  getFilters(account:string): Observable<any> {
+    return this.http.get(`${environment.apiendpoint}filters.json?account=${account}`);
+  }
+  
+  getAccounts(): Observable<any> {
+    return this.http.get(`${environment.apiendpoint}audit/account.json`);
   }
 
   setSelectedSecurityGroupId(groupId) {

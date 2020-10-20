@@ -3,8 +3,8 @@
         <form [formGroup]="filtersForm">
             <mat-form-field appearance="fill">
                 <mat-label>Account</mat-label>
-                <mat-select formControlName="account" (selectionChange)="renderAudits()">
-                    <mat-option *ngFor="let account of filters?.account" [value]="account">
+                <mat-select formControlName="account" (selectionChange)="filterByAccount($event.value)">
+                    <mat-option *ngFor="let account of accounts?.account" [value]="account">
                         {{account}}
                     </mat-option>
                 </mat-select>
@@ -27,7 +27,7 @@
             </mat-form-field>
             <mat-form-field appearance="fill">
                 <mat-label>Application</mat-label>
-                <mat-select formControlName="application" (selectionChange)="renderAudits()">
+                <mat-select formControlName="application" (selectionChange)="renderAudits(); ">
                     <mat-option *ngFor="let ags of filters?.ags" [value]="ags">
                         {{ags}}
                     </mat-option>

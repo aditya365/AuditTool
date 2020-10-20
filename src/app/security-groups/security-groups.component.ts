@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewInit, OnInit, OnDestroy } from "@angular/core";
+import { Component, ViewChild, AfterViewInit, OnInit, OnDestroy, ElementRef } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { securityGroup } from "./models/securityGroup.model";
@@ -19,6 +19,7 @@ import { DialogComponent } from "../dialog/dialog.component";
 export class SecurityGroupsComponent implements OnInit, OnDestroy {
   filtersForm: FormGroup;
   filters: any;
+  accounts: any;
   displayedColumns = [
     {
       key: "groupName",
@@ -41,6 +42,8 @@ export class SecurityGroupsComponent implements OnInit, OnDestroy {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('input') filter : ElementRef;
+
 
   constructor(
     public dialog: MatDialog,
@@ -55,8 +58,14 @@ export class SecurityGroupsComponent implements OnInit, OnDestroy {
       application: new FormControl(""),
       securityGroup: new FormControl(""),
     });
-    this.securityGroupsService.getFilters().subscribe((filters) => {
-      this.filters = filters;
+    // this.securityGroupsService.getFilters().subscribe((filters) => {
+    //   this.filters = filters;
+    // });
+
+    this.securityGroupsService.getAccounts().subscribe((accounts) => {
+      this.accounts = accounts;
+      console.log("hi");
+      console.log(this.accounts);
     });
   }
 
@@ -92,6 +101,20 @@ export class SecurityGroupsComponent implements OnInit, OnDestroy {
     const filterValue = (event.target as HTMLInputElement).value;
     if (this.dataSource)
       this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+  filterByAccount(account){
+    this.dataSource= new MatTableDataSource();
+    this.dataSource =null;
+    console.log(account);
+    this.securityGroupsService.getFilters(account).subscribe((filters) => {
+      this.filters = filters;
+    });
+    this.filtersForm.patchValue({
+      region :'',
+      vpc:'',
+      application:''
+    });
+    this.filter.nativeElement.value=''; 
   }
 
   // showDetails(element) {
