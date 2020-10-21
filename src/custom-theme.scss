@@ -23,7 +23,15 @@ $portus-primary-dark: mat-palette($mat-blue-grey);
 $portus-accent-dark: mat-palette($mat-amber);
 $portus-warn-dark: mat-palette($mat-red);
 
-$portus-theme-dark: mat-dark-theme($portus-primary-dark, $portus-accent-dark, $portus-warn-dark);
+$portus-theme-dark: mat-dark-theme(
+  $portus-primary-dark,
+  $portus-accent-dark,
+  $portus-warn-dark
+);
 .dark-theme-mode {
-    @include angular-material-theme($portus-theme-dark);
+  @include angular-material-theme($portus-theme-dark);
+  .md-drppicker,
+  .calendar-table {
+    background-color: #404144d1 !important;
+  }
 }
