@@ -10,6 +10,7 @@ import { SecurityGroupsComponent } from './security-groups/security-groups.compo
 })
 export class AppComponent {
   title = 'Security Groups Audit Tool';
+  isDarkTheme : boolean =false;
   links = [
     {
       "name": "Security Groups",
@@ -27,8 +28,14 @@ export class AppComponent {
     let dialogRef = this.dialog.open(DialogComponent, {
       width: '80%',
       data: { component:  SecurityGroupsComponent}
-    });
+    });    
   }
   
-  
+  ngOnInit() {
+    this.isDarkTheme = localStorage.getItem('theme') === "Dark" ? true : false;
+  }
+
+  storeThemeSelection() {
+    localStorage.setItem('theme', this.isDarkTheme ? "Dark" : "Light");
+  }
 }
