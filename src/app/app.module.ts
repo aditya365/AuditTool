@@ -14,6 +14,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuditDetailsComponent } from './audit/audit-details/audit-details.component';
 import { DialogComponent } from './dialog/dialog.component';
 // import {MatDatepickerModule} from '@angular/material/datepicker';
+import {OverlayContainer} from '@angular/cdk/overlay';
 
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import { FormsModule } from '@angular/forms';
@@ -34,6 +35,7 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     MaterialModule,
     ReactiveFormsModule,
+    FormsModule,
     AppRoutingModule,
 
 
@@ -50,4 +52,8 @@ import { FormsModule } from '@angular/forms';
     SecurityGroupsComponent,DialogComponent
   ],
 })
-export class AppModule { }
+export class AppModule {
+  constructor(overlayContainer: OverlayContainer) {
+    overlayContainer.getContainerElement().classList.add('dark-theme-mode');
+}
+ }

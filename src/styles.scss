@@ -1,7 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import '@angular/material/prebuilt-themes/indigo-pink.css';
+/* @import '@angular/material/prebuilt-themes/indigo-pink.css'; */
 
+
+ @import 'custom-theme.scss';
 html,
 body {
   height: 100%;
@@ -103,6 +105,26 @@ tr.example-element-row:not(.example-expanded-row):active {
 }
 
 th {
-  color: #000 !important;
+  // color: #000 !important;
   font-size: medium !important;
 }
+
+
+// @import "~@angular/material/theming";
+// @include mat-core();
+
+// $portus-primary: mat-palette($mat-light-blue);
+// $portus-accent: mat-palette($mat-light-green);
+// $portus-warn: mat-palette($mat-red);
+
+// $portus-theme: mat-light-theme($portus-primary, $portus-accent, $portus-warn);
+// @include angular-material-theme($portus-theme);
+
+// $portus-primary-dark: mat-palette($mat-blue-grey);
+// $portus-accent-dark: mat-palette($mat-amber);
+// $portus-warn-dark: mat-palette($mat-red);
+
+// $portus-theme-dark: mat-dark-theme($portus-primary-dark, $portus-accent-dark, $portus-warn-dark);
+// .dark-theme-mode {
+//     @include angular-material-theme($portus-theme-dark);
+// }
