@@ -157,7 +157,7 @@ export class AuditComponent implements OnInit {
           this.dates.endDate == null ? "" : this.dates.endDate.utc().format()
         ).pipe(delay(1000))
         .subscribe((data) => {
-          // this.isLoading=false;
+          this.isLoading=false;
           this.dataSource = new MatTableDataSource(data);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
