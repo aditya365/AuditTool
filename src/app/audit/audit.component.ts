@@ -10,6 +10,7 @@ import { MatTableDataSource } from "@angular/material/table";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { SelectionModel } from "@angular/cdk/collections";
 import { isMoment, Moment } from "moment";
+import { delay } from 'rxjs/operators';
 
 /**
  * @title Table retrieving data through HTTP
@@ -23,7 +24,8 @@ export class AuditComponent implements OnInit {
   filtersForm: FormGroup;
   filters: any;
   accounts : any;
- 
+  isLoading: boolean;
+
   selection = new SelectionModel<Audit>(true, []);
   selectedRows = [];
   disabled: boolean = true;
@@ -81,7 +83,9 @@ export class AuditComponent implements OnInit {
   //  this.auditService.getFilters(account).subscribe((filters) => {
     //  this.filters = filters;
     //});
+    this.isLoading = true;
     this.auditService.getAccounts().subscribe((accounts) => {
+      this.isLoading = false;
       this.accounts = accounts;
       console.log(this.accounts);
     });
@@ -139,6 +143,7 @@ export class AuditComponent implements OnInit {
       filters.application != ""
     ) {
       this.disabled = false;
+      this.isLoading = true;
       this.auditService
         .getAuditData(
           filters.account,
@@ -150,8 +155,9 @@ export class AuditComponent implements OnInit {
             ? ""
             : this.dates.startDate.utc().format(),
           this.dates.endDate == null ? "" : this.dates.endDate.utc().format()
-        )
+        ).pipe(delay(1000))
         .subscribe((data) => {
+          // this.isLoading=false;
           this.dataSource = new MatTableDataSource(data);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
