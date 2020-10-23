@@ -1,4 +1,3 @@
-
 import { Component, ViewChild, AfterViewInit, OnInit, ElementRef } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
@@ -10,7 +9,7 @@ import { MatTableDataSource } from "@angular/material/table";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { SelectionModel } from "@angular/cdk/collections";
 import { isMoment, Moment } from "moment";
-
+import { delay } from 'rxjs/operators';
 /**
  * @title Table retrieving data through HTTP
  */
@@ -22,8 +21,8 @@ import { isMoment, Moment } from "moment";
 export class AuditComponent implements OnInit {
   filtersForm: FormGroup;
   filters: any;
-  accounts : any;
- 
+  accounts: any;
+  isLoading: boolean;
   selection = new SelectionModel<Audit>(true, []);
   selectedRows = [];
   disabled: boolean = true;
@@ -64,7 +63,7 @@ export class AuditComponent implements OnInit {
   canShowDetails = false;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  @ViewChild('input') filter : ElementRef;
+  @ViewChild('input') filter: ElementRef;
 
   constructor(public dialog: MatDialog,
     private auditService: AuditService) { }
@@ -78,10 +77,11 @@ export class AuditComponent implements OnInit {
       application: new FormControl("", Validators.required),
       audit: new FormControl(""),
     });
-  //  this.auditService.getFilters(account).subscribe((filters) => {
+    //  this.auditService.getFilters(account).subscribe((filters) => {
     //  this.filters = filters;
     //});
     this.auditService.getAccounts().subscribe((accounts) => {
+      this.isLoading = false;
       this.accounts = accounts;
       console.log(this.accounts);
     });
@@ -107,9 +107,8 @@ export class AuditComponent implements OnInit {
     if (!row) {
       return `${this.isAllSelected() ? "select" : "deselect"} all`;
     }
-    return `${this.selection.isSelected(row) ? "deselect" : "select"} row ${
-      row.groupId + 1
-    }`;
+    return `${this.selection.isSelected(row) ? "deselect" : "select"} row ${row.groupId + 1
+      }`;
   }
 
   getDisplayColumns() {
@@ -139,6 +138,7 @@ export class AuditComponent implements OnInit {
       filters.application != ""
     ) {
       this.disabled = false;
+      this.isLoading = true;
       this.auditService
         .getAuditData(
           filters.account,
@@ -150,8 +150,9 @@ export class AuditComponent implements OnInit {
             ? ""
             : this.dates.startDate.utc().format(),
           this.dates.endDate == null ? "" : this.dates.endDate.utc().format()
-        )
+        ).pipe(delay(1000))
         .subscribe((data) => {
+          this.isLoading = false;
           this.dataSource = new MatTableDataSource(data);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
@@ -159,18 +160,18 @@ export class AuditComponent implements OnInit {
         });
     }
   }
-  filterByAccount(account){
-    this.dataSource= new MatTableDataSource();
+  filterByAccount(account) {
+    this.dataSource = new MatTableDataSource();
     console.log(account);
     this.auditService.getFilters(account).subscribe((filters) => {
       this.filters = filters;
     });
     this.filtersForm.patchValue({
-      region :'',
-      vpc:'',
-      application:''
+      region: '',
+      vpc: '',
+      application: ''
     });
-    this.filter.nativeElement.value='';   
+    this.filter.nativeElement.value = '';
   }
 
   applyFilter(event: Event) {
