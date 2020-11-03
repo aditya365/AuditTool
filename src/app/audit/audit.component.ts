@@ -1,5 +1,10 @@
-
-import { Component, ViewChild, AfterViewInit, OnInit, ElementRef } from "@angular/core";
+import {
+  Component,
+  ViewChild,
+  AfterViewInit,
+  OnInit,
+  ElementRef,
+} from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { Audit } from "./models/audit.model";
@@ -10,7 +15,7 @@ import { MatTableDataSource } from "@angular/material/table";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { SelectionModel } from "@angular/cdk/collections";
 import { isMoment, Moment } from "moment";
-import { delay } from 'rxjs/operators';
+import { delay } from "rxjs/operators";
 
 /**
  * @title Table retrieving data through HTTP
@@ -23,7 +28,7 @@ import { delay } from 'rxjs/operators';
 export class AuditComponent implements OnInit {
   filtersForm: FormGroup;
   filters: any;
-  accounts : any;
+  accounts: any;
   isLoading: boolean;
 
   selection = new SelectionModel<Audit>(true, []);
@@ -66,29 +71,26 @@ export class AuditComponent implements OnInit {
   canShowDetails = false;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  @ViewChild('input') filter : ElementRef;
+  @ViewChild("input") filter: ElementRef;
 
-  constructor(public dialog: MatDialog,
-    private auditService: AuditService) { }
+  constructor(public dialog: MatDialog, private auditService: AuditService) {}
   groupIds: any;
 
   ngOnInit() {
     this.filtersForm = new FormGroup({
-      account: new FormControl("", Validators.required),
-      region: new FormControl("", Validators.required),
-      vpc: new FormControl("", Validators.required),
-      application: new FormControl("", Validators.required),
+      account: new FormControl(""),
+      region: new FormControl(""),
+      vpc: new FormControl(""),
+      application: new FormControl(""),
       audit: new FormControl(""),
     });
-  //  this.auditService.getFilters(account).subscribe((filters) => {
-    //  this.filters = filters;
-    //});
     this.isLoading = true;
     this.auditService.getAccounts().subscribe((accounts) => {
       this.isLoading = false;
       this.accounts = accounts;
       console.log(this.accounts);
     });
+    this.renderAudits();
   }
 
   isAllSelected() {
@@ -136,47 +138,40 @@ export class AuditComponent implements OnInit {
 
   renderAudits() {
     const filters = this.filtersForm.value;
-    if (
-      filters.acoucnt != "" &&
-      filters.region != "" &&
-      filters.vpc != "" &&
-      filters.application != ""
-    ) {
-      this.disabled = false;
-      this.isLoading = true;
-      this.auditService
-        .getAuditData(
-          filters.account,
-          filters.region,
-          filters.vpc,
-          filters.application,
-          filters.audit,
-          this.dates.startDate == null
-            ? ""
-            : this.dates.startDate.utc().format(),
-          this.dates.endDate == null ? "" : this.dates.endDate.utc().format()
-        ).pipe(delay(1000))
-        .subscribe((data) => {
-          this.isLoading=false;
-          this.dataSource = new MatTableDataSource(data);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-          console.log(this.dates.startDate);
-        });
-    }
+    this.disabled = false;
+    this.isLoading = true;
+    this.auditService
+      .getAuditData(
+        filters.account,
+        filters.region,
+        filters.vpc,
+        filters.application,
+        filters.audit,
+        this.dates?.startDate == null ? "" : this.dates?.startDate.utc().format(),
+        this.dates?.endDate == null ? "" : this.dates?.endDate.utc().format()
+      )
+    //  .pipe(delay(1000))
+      .subscribe((data) => {
+        this.isLoading = false;
+        this.dataSource = new MatTableDataSource(data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        console.log(this.dates.startDate);
+      });
   }
-  filterByAccount(account){
-    this.dataSource= new MatTableDataSource();
+  filterByAccount(account) {
+    this.dataSource = new MatTableDataSource();
     console.log(account);
     this.auditService.getFilters(account).subscribe((filters) => {
       this.filters = filters;
     });
     this.filtersForm.patchValue({
-      region :'',
-      vpc:'',
-      application:''
+      region: "",
+      vpc: "",
+      application: "",
     });
-    this.filter.nativeElement.value='';   
+    this.filter.nativeElement.value = "";
+    this.renderAudits();
   }
 
   applyFilter(event: Event) {
@@ -190,7 +185,8 @@ export class AuditComponent implements OnInit {
   }
 
   isCompareDisabled() {
-    if (this.selection.selected.length > 0 && this.filtersForm.valid) return false;
+    if (this.selection.selected.length > 0 && this.filtersForm.valid)
+      return false;
     else {
       return true;
     }
