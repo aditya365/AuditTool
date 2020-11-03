@@ -47,7 +47,7 @@ export class AuditComponent implements OnInit {
       displayName: "Group Id",
     },
     {
-      key: "account",
+      key: "accountname",
       displayName: "Account",
     },
     {
