@@ -5,7 +5,7 @@
     "policyName":"database rules",
     "vpcId":"vpc-d966aca1",
     "account":"754249303703",
-    "accountname":"finra-toolsdev",
+    "accountname":"finra-toolsprod",
     "lastEditedBy":"bradley.kovaluk@finra.org",
     "GroupName":"AOPAIR-db",
     "AGS":"AOPAIR",
@@ -34,7 +34,7 @@
 
     "vpcId":"vpc-d966aca1",
     "account":"754249303703",
-    "accountname":"finra-toolsdev",
+    "accountname":"finra-toolsprod",
     "sdlc":"dev",
     "lastEditedBy":"bill.chen@finra.org",
     "GroupName":"SENDMAIL-elb-secmail",
