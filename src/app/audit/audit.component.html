@@ -69,7 +69,7 @@
                 <td mat-cell *matCellDef="let element"> {{element[column.key]}} </td>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="getDisplayColumns()"></tr>
-            <tr mat-row [ngClass]="{'highlight': element.resourceType?.endsWith('Group')}"  *matRowDef="let element; columns: getDisplayColumns()" ></tr>
+            <tr mat-row [ngClass]="{'highlight': element.accountname?.endsWith('prod')}"  *matRowDef="let element; columns: getDisplayColumns()" ></tr>
             <tr class="mat-row" *matNoDataRow >
                 <td class="mat-cell" colspan="9999">
                     No results found matching the filter
