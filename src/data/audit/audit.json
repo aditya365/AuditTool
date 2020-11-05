@@ -3,7 +3,7 @@
   {
     "policyId":"6",
     "policyName":"database rules",
-    "vpcId":"vpc-d966aca1",
+    "vpcId":"vpc-cfef54a9",
     "account":"754249303703",
     "accountname":"finra-toolsprod",
     "lastEditedBy":"bradley.kovaluk@finra.org",
@@ -16,13 +16,13 @@
   },
   {
 
-    "vpcId":"vpc-d966aca1",
+    "vpcId":"vpc-c63229a4",
     "account":"754249303703",
     "accountname":"finra-toolsdev",
     "sdlc":"dev",
     "lastEditedBy":"jason.haynes@finra.org",
     "GroupName":"AMI-app-builder",
-    "AGS":"AMI",
+    "AGS":"JIRA",
     "groupId":"sg-b21fd5f9",
     "direction":"OUTBOUND",
     "resourceType": "IPv6",
@@ -32,9 +32,9 @@
   
   {
 
-    "vpcId":"vpc-d966aca1",
+    "vpcId":"vpc-c63229a4",
     "account":"754249303703",
-    "accountname":"finra-toolsprod",
+    "accountname":"finra-toolsdev",
     "sdlc":"dev",
     "lastEditedBy":"bill.chen@finra.org",
     "GroupName":"SENDMAIL-elb-secmail",
