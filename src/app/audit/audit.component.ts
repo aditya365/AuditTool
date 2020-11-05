@@ -90,6 +90,7 @@ export class AuditComponent implements OnInit {
       this.accounts = accounts;
       console.log(this.accounts);
     });
+
     this.renderAudits();
   }
 
@@ -147,21 +148,26 @@ export class AuditComponent implements OnInit {
         filters.vpc,
         filters.application,
         filters.audit,
-        this.dates?.startDate == null ? "" : this.dates?.startDate.utc().format(),
+        this.dates?.startDate == null
+          ? ""
+          : this.dates?.startDate.utc().format(),
         this.dates?.endDate == null ? "" : this.dates?.endDate.utc().format()
       )
-    //  .pipe(delay(1000))
+      //  .pipe(delay(1000))
       .subscribe((data) => {
         this.isLoading = false;
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.dataSource.filterPredicate = (data: Audit, filter: string) => {
+          return data.account == filter;
+        };
         console.log(this.dates.startDate);
       });
   }
-  filterByAccount(account) {
-    this.dataSource = new MatTableDataSource();
-    console.log(account);
+  getOtherFilters(account) {
+    // this.dataSource = new MatTableDataSource();
+    // console.log(account);
     this.auditService.getFilters(account).subscribe((filters) => {
       this.filters = filters;
     });
@@ -171,13 +177,30 @@ export class AuditComponent implements OnInit {
       application: "",
     });
     this.filter.nativeElement.value = "";
-    this.renderAudits();
+    //this.renderAudits();
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     if (this.dataSource)
       this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  applySelectFilter(event: any, field: string) {
+    if (field == "accountname") {
+      this.getOtherFilters(event.value);
+    }
+    this.dataSource.filterPredicate = (data: Audit, filter: string) => {
+      const account = this.filtersForm.controls["account"].value;
+      const vpc = this.filtersForm.controls["vpc"].value;
+      const application = this.filtersForm.controls["application"].value;
+      return (
+        data["accountname"] == account &&
+        (vpc != "" ? data["vpcId"] == vpc : true) &&
+        (application != "" ? data["AGS"] == application : true)
+      );
+    };
+    this.dataSource.filter = event.value;
   }
 
   filterByDates(event) {
@@ -195,9 +218,6 @@ export class AuditComponent implements OnInit {
   showDetails() {
     this.canShowDetails = true;
     this.groupIds = this.selection.selected.map((row) => row.groupId);
-    // const dialogRef = this.dialog.open(AuditDetailsComponent, {
-    //   data: { groupIds: groupIds },
-    // });
     console.log(this.groupIds);
   }
 
