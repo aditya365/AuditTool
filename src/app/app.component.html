@@ -1,8 +1,8 @@
 <ng-container>
-    <mat-toolbar class="example-header" color="primary">
+    <mat-toolbar [ngClass]="[isDarkTheme? 'toolbar-background-dark' : 'toolbar-background-light']">
         <a matLine routerLink="" class="app-name">Security Groups Audit Tool</a>
         <span style="flex:auto"></span>
-      <mat-slide-toggle [(ngModel)]="isDarkTheme" labelPosition="before"  (change)="storeThemeSelection()"><mat-icon>bedtime</mat-icon></mat-slide-toggle></mat-toolbar>      
+      <mat-slide-toggle [(ngModel)]="isDarkTheme" labelPosition="before"  (change)="storeThemeSelection()"><mat-icon class="white-icon">bedtime</mat-icon></mat-slide-toggle></mat-toolbar>      
     <mat-sidenav-container class="example-container mat-app-background"  [ngClass]="{'dark-theme-mode':isDarkTheme}">
         <mat-sidenav #sidenav mode="side" opened class="example-sidenav">
             <mat-nav-list>
