@@ -1,5 +1,5 @@
-import { Component, OnInit, Inject, ViewChild, AfterViewInit,Input } from '@angular/core';
-import { MAT_DIALOG_DATA , MatDialog} from '@angular/material/dialog';
+import { Component, OnInit, Inject, ViewChild, AfterViewInit, Input } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { AuditService } from '../audit.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -15,7 +15,7 @@ import { SecurityGroupsService } from 'src/app/security-groups/security-groups.s
   styleUrls: ['./audit-details.component.css']
 })
 export class AuditDetailsComponent implements OnInit, AfterViewInit {
-  details: any[]=[];
+  details: any[] = [];
   @Input() groupIds;
   changeColumns = [
     {
@@ -43,7 +43,7 @@ export class AuditDetailsComponent implements OnInit, AfterViewInit {
       displayName: 'Updated Time'
     }];
 
-  changeDataSources: MatTableDataSource<Change>[]=[];
+  changeDataSources: MatTableDataSource<Change>[] = [];
   //securityGroupsService: any;
 
   // @ViewChild('changeTable', { read: MatSort, static: true }) changeTableSort: MatSort;
@@ -55,11 +55,11 @@ export class AuditDetailsComponent implements OnInit, AfterViewInit {
     public dialog: MatDialog,
     private securityGroupsService: SecurityGroupsService,
     private auditsService: AuditService
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     console.log(this.groupIds);
-   // this.data.groupIds.forEach(groupId => {
+    // this.data.groupIds.forEach(groupId => {
     this.groupIds.forEach(groupId => {
 
       this.auditsService.getAuditDetails(groupId).subscribe((details) => {
@@ -71,7 +71,7 @@ export class AuditDetailsComponent implements OnInit, AfterViewInit {
       });
     });
   }
-  OpenSecurityDetails(row){
+  OpenSecurityDetails(row) {
     console.log(row);
     this.securityGroupsService.setSelectedSecurityGroupId(row.resource);
     console.log(row.resource)

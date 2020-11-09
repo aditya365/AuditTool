@@ -5,14 +5,14 @@
     "policyName":"database rules",
     "vpcId":"vpc-cfef54a9",
     "account":"754249303703",
-    "accountname":"finra-toolsprod",
+    "accountname":"finra-toolsdev",
     "lastEditedBy":"bradley.kovaluk@finra.org",
     "GroupName":"AOPAIR-db",
     "AGS":"AOPAIR",
     "groupId":"sg-007a068f5b73080c3",
     "direction":"INBOUND",
     "resourceType": "IP",
-    "updatedDate": "10/18/2020 9:20PM"
+    "updatedDate": 1333065600000
   },
   {
 
@@ -26,7 +26,7 @@
     "groupId":"sg-b21fd5f9",
     "direction":"OUTBOUND",
     "resourceType": "IPv6",
-    "updatedDate": "09/18/2020 4:50AM"
+    "updatedDate": 1333065600000
   },
   
   
@@ -42,7 +42,7 @@
     "groupId":"sg-0ed169e0bc31f5886",
     "direction":"INBOUND",
     "resourceType": "Security Group",
-    "updatedDate": "08/18/2020 6:10AM"
+    "updatedDate": 1333065600000
   },
   {
  
@@ -56,7 +56,7 @@
     "groupId":"sg-05c5b48056e73a9bc",
     "direction":"INBOUND",
     "resourceType": "IP",
-    "updatedDate": "10/18/2020 3:37PM"
+    "updatedDate": 1333065600000
   },
   {
     "policyId":"6",
@@ -71,7 +71,7 @@
     "groupId":"sg-8d5ea0c6",
     "direction":"INBOUND",
     "resourceType": "IP",
-    "updatedDate": "10/09/2020 4:16PM"
+    "updatedDate": 1333065600000
   },
   {
     "policyId":"26",
@@ -86,7 +86,7 @@
     "groupId":"sg-0baf3a68adf877f40",
     "direction":"INBOUND",
     "resourceType": "Security Group",
-    "updatedDate": "10/18/2020 9:46AM"
+    "updatedDate": 1333065600000
   },
   {
     "policyId":"7",
@@ -101,7 +101,7 @@
     "groupId":"sg-0bd4c913ebd66ae2d",
     "direction":"INBOUND",
     "resourceType": "IP",
-    "updatedDate": "10/10/2020 7:54AM"
+    "updatedDate": 1333065600000
   },
   {
     "vpcId":"vpc-d966aca1",
@@ -114,7 +114,7 @@
     "groupId":"sg-01fe76fd90647cfa7",
     "direction":"INBOUND",
     "resourceType": "IPv6",
-    "updatedDate": "10/18/2020"
+    "updatedDate": 1333065600000
   },
   {
     "policyId":"7",
@@ -128,7 +128,7 @@
     "groupId":"sg-0901adf0d923b06c0",
     "direction":"INBOUND",
     "resourceType": "IP",
-    "updatedDate": "10/18/2020"
+    "updatedDate": 1333065600000
   },
   {
     "policyId":"8",
@@ -142,7 +142,7 @@
     "groupId":"sg-0364b07b951ddcf6b",
     "direction":"INBOUND",
     "resourceType": "Security Group",
-    "updatedDate": "10/18/2020"
+    "updatedDate": 1333065600000
   },
   {
     "policyId":"6",
@@ -157,7 +157,7 @@
     "groupId":"sg-09f13b919f8d84528",
     "direction":"INBOUND",
     "resourceType": "IP",
-    "updatedDate": "10/18/2020"
+    "updatedDate": 1333065600000
   },
   {
     "policyId":"26",
@@ -172,7 +172,7 @@
     "groupId":"sg-05668758b488cd3f9",
     "direction":"INBOUND",
     "resourceType": "IP",
-    "updatedDate": "10/18/2020"
+    "updatedDate": 1333065600000
   },
   {
     "policyId":"26",
@@ -187,7 +187,7 @@
     "groupId":"sg-be1734f6",
     "direction":"INBOUND",
     "resourceType": "IP",
-    "updatedDate": "10/18/2020"
+    "updatedDate": 1333065600000
   },
   {
     "policyId":"7",
@@ -202,7 +202,7 @@
     "groupId":"sg-08d151e4d0a8cc811",
     "direction":"INBOUND",
     "resourceType": "IPv6",
-    "updatedDate": "10/18/2020"
+    "updatedDate": 1333065600000
   },
   {
     "policyId":"6",
@@ -217,7 +217,7 @@
     "groupId":"sg-00bd29929bebeaeea",
     "resourceType": "Security Group",
     "direction":"INBOUND",
-    "updatedDate": "10/18/2020"
+    "updatedDate": 1333065600000
   },
   {
     "policyId":"26",
@@ -232,7 +232,7 @@
     "groupId":"sg-2d336a64",
     "direction":"INBOUND",
     "resourceType": "IP",
-    "updatedDate": "10/18/2020"
+    "updatedDate": 1333065600000
   },
   {
     "policyId":"6",
@@ -247,7 +247,7 @@
     "groupId":"sg-006063de542711ca4",
     "direction":"INBOUND",
     "resourceType": "IP",
-    "updatedDate": "10/18/2020"
+    "updatedDate": 1333065600000
   },
   {
     "policyId":"25",
@@ -262,7 +262,7 @@
     "groupId":"sg-70738d3b",
     "direction":"INBOUND",
     "resourceType": "Security Group",
-    "updatedDate": "10/18/2020"
+    "updatedDate": 1333065600000
   },
   {
     "policyId":"7",
@@ -277,7 +277,7 @@
     "groupId":"sg-01480b36bcaef36c1",
     "direction":"INBOUND",
     "resourceType": "Security Group",
-    "updatedDate": "10/18/2020"
+    "updatedDate": 1333065600000
   },
   {
     "vpcId":"vpc-d966aca1",
@@ -291,7 +291,7 @@
     "direction":"INBOUND",
     "Name":"FMFA-AP-Application",
     "resourceType": "IPV6",
-    "updatedDate": "10/18/2020"
+    "updatedDate": 1333065600000
   },
   {
     "policyId":"26",
@@ -306,7 +306,7 @@
     "groupId":"sg-43609e08",
     "direction":"INBOUND",
     "resourceType": "IPv6",
-    "updatedDate": "10/18/2020"
+    "updatedDate": 1333065600000
   }
 
  

@@ -224,4 +224,8 @@ export class AuditComponent implements OnInit {
   hideDetails() {
     this.canShowDetails = false;
   }
+  getPrintableDate(utcDate) {
+    return new Date(utcDate).toLocaleDateString();
+  }
+
 }
